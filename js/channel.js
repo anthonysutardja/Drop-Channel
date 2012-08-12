@@ -87,7 +87,7 @@ var UI = {
 		$('#main').html("");
 		if (click_virgin){
 			
-			$("#main").append('<div id="splash" class="virg">Click anywhere to add a file.</div>');
+			$("#main").append('<div id="splash" class="virg"><span>Click anywhere to add a file.</span><p class="teeny">Everyone in a 50 meter radius will see your drop!</p></div>');
 		}
 		UI.color = color;	
 		//change background color

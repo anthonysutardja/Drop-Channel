@@ -47,21 +47,36 @@ body{
 	background-color: #aa2d08;
 	border-color: #ca360a;
 }
+#red:hover{
+	background-color: #f7400a;
+}
 #purple{
 	background-color: #342eac;
 	border-color: #4741cc;
+}
+#purple:hover{
+	background-color: #554ed4;
 }
 #blue{
 	background-color: #2843f2;
 	border-color: #485ff4;
 }
+#blue:hover{
+	background-color: #334dfc;
+}
 #yellow{
-	background-color: #f7d52b;
+	background-color: #d8b300;
 	border-color: #f9df5c;
+}
+#yellow:hover{
+	background-color: #fee35a;
 }
 #green{
 	background-color: #1d8f26;
 	border-color: #23ab2e;
+}
+#green:hover{
+	background-color: #1cce2a;
 }
 .red{
 	background-color: #aa2d08;
@@ -76,7 +91,7 @@ body{
 	border-color: #485ff4;
 }
 .yellow{
-	background-color: #f7d52b;
+	background-color: #d8b300;
 	border-color: #f9df5c;
 }
 .green{
@@ -144,4 +159,9 @@ input{
 input .user{
 	font-size: 24pt;
 	font: bold 24pt "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+}
+.teeny{
+	padding-top: 15px;
+	font-size: 10pt;
+	
 }
