@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Drop Channel</title>
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link href="bootstrap.css" rel="stylesheet">
+	<link href="style.css" rel="stylesheet">
+</head>
+<body>
+<div class="container" style="font-size: 0; position: relative;">
+	<div class="sidebar-container">
+		<div class="descrip">Channels</div>
+		<div id="red" class="color">Red</div>
+		<div id="blue" class="color">Blue</div>
+		<div id="yellow" class="color">Yellow</div>
+		<div id="green" class="color">Green</div>
+		<div id="purple" class="color">Purple</div>
+	</div>
+	<div id="main" class="main-container">
+
+	</div>
+</div>
+	<script src="js/jquery-1.8.0.min.js"></script>
+	<script src="http://static.firebase.com/v0/firebase.js"></script>
+	<script src="https://api.filepicker.io/v0/filepicker.js"></script>
+	
+	<script src="js/geodecimaldegrees.js"></script>
+	<script src="js/channel.js"></script>
+	<script type="text/javascript">
+
+	$(document).ready(function() {
+		$('#main').click(function(e) {
+			if( e.srcElement.className === 'main-container'){
+		      var posX = $(this).offset().left, posY = $(this).offset().top;
+              var pleft = e.pageX - posX;
+              var ptop = e.pageY - posY;
+		      filepicker.getFile(filepicker.MIMETYPES.ALL, {'modal':true}, function(url, metadata) {
+		          // Now that we have the url and some information about the file,
+		          // file name is metadata.filename;
+                  UI.addItem(null,url,ptop,pleft,metadata.filename);
+		      });
+		    }
+		});
+
+	});
+	</script>
+</body>
+</html>
