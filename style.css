@@ -26,9 +26,12 @@ body{
 	background-color: #aa2d08;
 	border-top: 10px solid #ca360a;
 	border-bottom: 10px solid #ca360a;
+	
+	cursor: crosshair;
 }
 .main-container:hover{
 	//cursor:url('img/cursor.png');
+	cursor: crosshair;
 }
 .descrip{
 	padding: 5px 5px 5px 15px;
@@ -38,6 +41,7 @@ body{
 	font-size: 14pt;
 	width: 166px;
 	border-top: 7px solid #333;
+	cursor: pointer;
 }
 #red{
 	background-color: #aa2d08;
@@ -124,7 +128,7 @@ body{
 	-moz-text-shadow: 3px 3px 0px rgba(0,0,0,.3);
 	-webkit-text-shadow: 3px 3px 0px rgba(0,0,0,.3);
 	text-shadow: 3px 3px 0px rgba(0,0,0,.3);
-
+	cursor: crosshair;
 }
 #namestuff{
 	position: absolute;
