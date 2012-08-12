@@ -23,11 +23,10 @@ var checkLocations = function(locations){
 	
 	if (navigator.geolocation) {
 		navigator.geolocation.getCurrentPosition(genSuccessCallback(locations), ErrorCallback, {enableHighAccuracy: true});
-		$("#main").append('<div id="splash" class="virg">Click anywhere to add a file.</div>');
 	  	//navigator.geolocation.getCurrentPosition(genSuccessCallback(locations), ErrorCallback, {enableHighAccuracy: true, maximumAge:1000*60*5});
 	} else {
 	  	alert("This browser does not have geolocation support.");
-	  	$("#main").append('<div id="splash">Could not locate :(</div>');
+	  	$("#main").append('<div id="splash"><span>Could not locate :(</span></div>');
 	}
 };
 
@@ -71,6 +70,7 @@ var genSuccessCallback = function(locations){
 var ErrorCallback = function(position){
 	alert("Could not retrieve location.");
 	console.log('error');
+	$("#main").append('<div id="splash"><span>Could not locate :(</span></div>');
 };
 
 var coordToString = function(lat,lon){
