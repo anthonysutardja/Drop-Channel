@@ -7,10 +7,12 @@ var world_locations = base.child('locations');
 var myloc;
 var first_init = false;
 
+var click_virgin = true;
+
+var file_obj = {};
 
 world_locations.once('value', function(data){
 	var locations = data.val();
-	console.log(data);
 	if (locations == null){
 		locations = [];
 	}
@@ -20,9 +22,12 @@ var checkLocations = function(locations){
 	//check user's position
 	
 	if (navigator.geolocation) {
-	  	navigator.geolocation.getCurrentPosition(genSuccessCallback(locations), ErrorCallback, {enableHighAccuracy: true, maximumAge:1000*60*5});
+		navigator.geolocation.getCurrentPosition(genSuccessCallback(locations), ErrorCallback, {enableHighAccuracy: true});
+		$("#main").append('<div id="splash" class="virg">Click anywhere to add a file.</div>');
+	  	//navigator.geolocation.getCurrentPosition(genSuccessCallback(locations), ErrorCallback, {enableHighAccuracy: true, maximumAge:1000*60*5});
 	} else {
 	  	alert("This browser does not have geolocation support.");
+	  	$("#main").append('<div id="splash">Could not locate :(</div>');
 	}
 };
 
@@ -40,7 +45,6 @@ var genSuccessCallback = function(locations){
 				found.push({'location': locations[i], 'distance' : distance});
 			}
 		}
-		console.log(found);
 		var final_location;
 		if ( found.length === 0 ){
 			//Add a new center
@@ -48,7 +52,6 @@ var genSuccessCallback = function(locations){
 			locations.push({'latitude' : currentLoc._lat, 'longitude' : currentLoc._lon});
 			world_locations.set(locations);
 		}else{
-			console.log('executed');
 			//Find nearest location
 			var min_dist = found[0].distance;
 			final_location = found[0].location;
@@ -59,8 +62,6 @@ var genSuccessCallback = function(locations){
 				};
 			}
 		}
-		console.log(final_location);
-		console.log(coordToString(final_location.latitude, final_location.longitude));
 		//do something with final_location
 		myloc = base.child(coordToString(final_location.latitude, final_location.longitude));
 		UI.setChannel('red');
@@ -69,6 +70,7 @@ var genSuccessCallback = function(locations){
 };
 var ErrorCallback = function(position){
 	alert("Could not retrieve location.");
+	console.log('error');
 };
 
 var coordToString = function(lat,lon){
@@ -78,12 +80,19 @@ var coordToString = function(lat,lon){
 
 var UI = {
 	'channel' : null,
+	'color' : "",
 	'setChannel' : function(color){
 		//clear all items
-		
-		//change tab color
-		
+		$('#main').removeClass(UI.color);
+		$('#main').html("");
+		if (click_virgin){
+			
+			$("#main").append('<div id="splash" class="virg">Click anywhere to add a file.</div>');
+		}
+		UI.color = color;	
 		//change background color
+		
+		$('#main').addClass(color);
 		
 		if (UI.channel){
 			UI.channel.off('child_added', UI.drawItem);
@@ -97,20 +106,35 @@ var UI = {
 		//callback function for data
 		//check
 		var file = snapshot.val();
+		file_obj[file.uid] = snapshot.ref();
+		file_obj[file.uid].on('value', UI.redraw);
+		//ref.child("top").set(css.top)
 		//draw shit on canvas.
 
-		$('#main').append('<div id="'+file.uid+'" class="file"><center><div class="filename">'+file.filename+'</div><a href="'+file.url+'"><div class="icon"></div></a><div class="author">'+file.author+'</div></center></div>').children("#"+file.uid).css('top', file.top).css('left', file.left);
+		$('#main').append('<div id="'+file.uid+'" class="file"><div id="handle" class="filename '+UI.color+'">'+file.filename+'</div><a href="'+file.url+'"><div class="icon"></div></a><div class="author">'+file.author+'</div></div>').children("#"+file.uid).css('top', file.top).css('left', file.left);
+		$('#'+file.uid).bind('dragstart',function( event ){
+		                return $(event.target).is('#handle');
+		                })
+		        .bind('drag',function( event ){
+		                $( this ).css({
+		                        top: event.offsetY,
+		                        left: event.offsetX
+		                });
+		                file_obj[file.uid].child("top").set(event.offsetY);
+		                file_obj[file.uid].child("left").set(event.offsetX);                
+		        });
 	
 		//add event handlers for dragging
 	},
 	'eraseItem' : function(snapshot){
 		//remove UI element
 		var file = snapshot.val();
-		//do shit
+		$('#'+file.uid).remove();
+		delete file_obj[file.uid];
 	},
 	'addItem' : function(auth, url, top, left, filename){
 		//add item
-		var author = author || "Guest";
+		var author = auth || "Guest";
         var delivery = {
             'uid' : generateUID(),
             'author' : author,
@@ -124,6 +148,13 @@ var UI = {
 	},
 	'deleteItem' : function(){
 		// DONT DO ANY UI SHIT HERE
+	},
+	'redraw' : function(snapshot){
+		var file = snapshot.val();
+		if (file != null){
+			$('#'+file.uid).css({'top' : file.top, 'left' : file.left});
+		}
+		//otherwise let the other event handle it.
 	}
 };
 

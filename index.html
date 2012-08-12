@@ -19,10 +19,15 @@
 		<div id="purple" class="color">Purple</div>
 	</div>
 	<div id="main" class="main-container">
-
+		
+	</div>
+	<div id="namestuff">
+		<input class="user" type="text" name="user" value="Guest" style="font: bold 24pt 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;"/>
 	</div>
 </div>
 	<script src="js/jquery-1.8.0.min.js"></script>
+	<script src="js/jquery.event.drag-2.2.js"></script>
+	<script src="js/jquery.event.drag.live-2.2.js"></script>
 	<script src="http://static.firebase.com/v0/firebase.js"></script>
 	<script src="https://api.filepicker.io/v0/filepicker.js"></script>
 	
@@ -31,16 +36,43 @@
 	<script type="text/javascript">
 
 	$(document).ready(function() {
+
+		$('#red').click(function(e){
+			UI.setChannel('red');
+		});
+		$('#blue').click(function(e){
+			UI.setChannel('blue');
+		});
+		$('#yellow').click(function(e){
+			UI.setChannel('yellow');
+		});
+		$('#green').click(function(e){
+			UI.setChannel('green');
+		});
+		$('#purple').click(function(e){
+			UI.setChannel('purple');
+		});
+
 		$('#main').click(function(e) {
-			if( e.srcElement.className === 'main-container'){
+
+		var target = e.target || e.srcElement;
+			if( target.className == "virg" || (target.className.length >= 14 && target.className.substr(0,14) === 'main-container')){
+			  click_virgin = false;
+			  $('#splash').remove();
+			  
+			  var uzr = $('.user').val();
+			  
 		      var posX = $(this).offset().left, posY = $(this).offset().top;
               var pleft = e.pageX - posX;
               var ptop = e.pageY - posY;
+              
+              
 		      filepicker.getFile(filepicker.MIMETYPES.ALL, {'modal':true}, function(url, metadata) {
 		          // Now that we have the url and some information about the file,
 		          // file name is metadata.filename;
-                  UI.addItem(null,url,ptop,pleft,metadata.filename);
+                  UI.addItem(uzr,url,ptop,pleft,metadata.filename);
 		      });
+		      
 		    }
 		});
 

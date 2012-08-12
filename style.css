@@ -59,6 +59,26 @@ body{
 	background-color: #1d8f26;
 	border-color: #23ab2e;
 }
+.red{
+	background-color: #aa2d08;
+	border-color: #ca360a;
+}
+.purple{
+	background-color: #342eac;
+	border-color: #4741cc;
+}
+.blue{
+	background-color: #2843f2;
+	border-color: #485ff4;
+}
+.yellow{
+	background-color: #f7d52b;
+	border-color: #f9df5c;
+}
+.green{
+	background-color: #1d8f26;
+	border-color: #23ab2e;
+}
 .file{
 	position: absolute;
 	margin: 10px;
@@ -68,8 +88,8 @@ body{
 	font-size: 6pt;
 	//border-radius: 5px;
 	border: 2px solid #eceef1;
-	-moz-box-shadow: 3px 3px 4px #000;
-	-webkit-box-shadow: 3px 3px 4px #000;
+	-moz-box-shadow: 3px 3px 0px rgba(0,0,0,.3);
+	-webkit-box-shadow: 3px 3px 0px rgba(0,0,0,.3);
 	box-shadow: 3px 3px 0px rgba(0,0,0,.3);
 }
 .author{
@@ -79,7 +99,7 @@ body{
 .filename{
 	padding: 4px 8px 4px 8px;
 	font-size: 8pt;
-	background-color: #aa2d08;
+	//background-color: #aa2d08;
 	color: rgba(255,255,255,0.8);
 }
 
@@ -88,5 +108,36 @@ body{
 	margin-bottom:4px;
 	width: 32px;
 	height: 48px;
+	margin-left: auto;
+	margin-right: auto; 
 	background-image: url('img/Document.png');
+}
+#handle{
+	cursor: move;
+}
+#splash{
+	margin: auto;
+	padding-top: 250px;
+	text-align: center;
+	font-size: 27pt;
+	color: #fff;
+	-moz-text-shadow: 3px 3px 0px rgba(0,0,0,.3);
+	-webkit-text-shadow: 3px 3px 0px rgba(0,0,0,.3);
+	text-shadow: 3px 3px 0px rgba(0,0,0,.3);
+
+}
+#namestuff{
+	position: absolute;
+	top: 650px;
+	right: 0px;
+}
+input{
+	background-color: #15181c;
+	min-height: 50px;
+	font-size: 24pt;
+	font: bold 24pt "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+}
+input .user{
+	font-size: 24pt;
+	font: bold 24pt "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
 }
