@@ -1,6 +1,6 @@
 var BASE_URL = "http://gamma.firebase.com/anthony/";
 
-filepicker.setKey('AFTakle7HQemqmsw6-CoUz');
+filepicker.setKey('YOUR FILEPICKER.IO KEY HERE');
 
 var base = new Firebase(BASE_URL);
 var world_locations = base.child('locations');
